@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "265049171088",
+    "project_id": "appinio-restaurant-1000a",
+    "storage_bucket": "appinio-restaurant-1000a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265049171088:android:37adb09a4a7cc45d5ae415",
+        "android_client_info": {
+          "package_name": "com.example.appinio_restaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "265049171088-il70gsalbtqkvqc34spvs3qn9reh81gk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJAhHcffX0OEMTESaNrwCZfJk3WzceFVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "265049171088-il70gsalbtqkvqc34spvs3qn9reh81gk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
