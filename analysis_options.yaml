@@ -3,6 +3,7 @@ include: package:lint/analysis_options.yaml
 analyzer:
   errors:
     todo: info
+    invalid_annotation_target: ignore
     implementation_imports: error
     invalid_use_of_protected_member: error
     invalid_use_of_visible_for_testing_member: error
@@ -14,6 +15,9 @@ analyzer:
     always_put_control_body_on_new_line: error
 
   exclude: [
+      /**/*.g.dart,
+      /**/*.freezed.dart,
+      lib/common/injector/injector.config.dart,
       lib/firebase_options.dart,
     ]
 
