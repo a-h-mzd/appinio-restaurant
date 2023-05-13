@@ -1,6 +1,5 @@
 import 'package:appinio_restaurant/common/injector/injector.dart';
-import 'package:appinio_restaurant/domain/tables/usecase.dart';
-import 'package:appinio_restaurant/presentation/models/table.dart';
+import 'package:appinio_restaurant/domain/cuisines/usecase.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
@@ -10,10 +9,10 @@ class InitScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TablesUsecase usecase = inject();
+    final CuisinesUsecase usecase = inject();
     return Scaffold(
       body: StreamBuilder(
-        stream: usecase.tablesStream(),
+        stream: usecase.cuisinesStream(),
         builder: (context, snapshot) {
           final docs = snapshot.data?.docs;
           if (docs == null) {
@@ -22,22 +21,64 @@ class InitScreen extends StatelessWidget {
             );
           }
 
-          final buffer = StringBuffer();
-          for (final doc in docs) {
-            buffer.write('Id: ');
-            buffer.write(doc.id);
-            buffer.writeln();
-            for (final data in doc.modelJson().entries) {
-              buffer.write('  ');
-              buffer.write(data.key);
-              buffer.write(': ');
-              buffer.write(data.value);
-              buffer.writeln();
-            }
-            buffer.writeln();
-          }
-          return Center(
-            child: Text(buffer.toString()),
+          return ListView.separated(
+            itemCount: docs.length,
+            separatorBuilder: (_, __) => const SizedBox(height: 20),
+            itemBuilder: (context, index) {
+              final doc = docs[index].data();
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Image.network(doc.image),
+                    const SizedBox(height: 20),
+                    Text(
+                      doc.name,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Ingredients:',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    ...doc.ingredients.map(
+                      (ingredient) => Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          ingredient,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Procedure:',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    ...doc.procedure.map(
+                      (procedure) => Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          procedure,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
           );
         },
       ),
