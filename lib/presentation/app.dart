@@ -33,7 +33,10 @@ class AppinioRestaurantApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Appinio Restaurant',
-      theme: ThemeData(fontFamily: FontFamily.sFProRounded),
+      theme: ThemeData(
+        fontFamily: FontFamily.sFProRounded,
+        useMaterial3: true,
+      ),
       routerConfig: router.config(),
       locale: context.watch<LocaleProvider>().locale,
       supportedLocales: AppLocalizations.supportedLocales,

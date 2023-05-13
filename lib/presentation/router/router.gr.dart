@@ -15,12 +15,6 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    InitRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const InitScreen(),
-      );
-    },
     CuisineRoute.name: (routeData) {
       final args = routeData.argsAs<CuisineRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -38,6 +32,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const DashboardScreen(),
       );
     },
+    ReservationTimeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const ReservationTimeScreen()),
+      );
+    },
     CuisinesRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -45,20 +45,6 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
-}
-
-/// generated route for
-/// [InitScreen]
-class InitRoute extends PageRouteInfo<void> {
-  const InitRoute({List<PageRouteInfo>? children})
-      : super(
-          InitRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'InitRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -109,6 +95,20 @@ class DashboardRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'DashboardRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ReservationTimeScreen]
+class ReservationTimeRoute extends PageRouteInfo<void> {
+  const ReservationTimeRoute({List<PageRouteInfo>? children})
+      : super(
+          ReservationTimeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ReservationTimeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

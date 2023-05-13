@@ -23,5 +23,9 @@
   "procedure": "Procedure:",
   "@procedure": {
     "type": "text"
+  },
+  "next": "Next",
+  "@next": {
+    "type": "text"
   }
 }
