@@ -15,5 +15,13 @@
   "noCuisinesAvailable": "No cuisines available!",
   "@noCuisinesAvailable": {
     "type": "text"
+  },
+  "ingredients": "Ingredients:",
+  "@ingredients": {
+    "type": "text"
+  },
+  "procedure": "Procedure:",
+  "@procedure": {
+    "type": "text"
   }
 }

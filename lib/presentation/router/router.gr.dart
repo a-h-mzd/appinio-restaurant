@@ -21,6 +21,17 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const InitScreen(),
       );
     },
+    CuisineRoute.name: (routeData) {
+      final args = routeData.argsAs<CuisineRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: CuisineScreen(
+          key: args.key,
+          cuisine: args.cuisine,
+        )),
+      );
+    },
     DashboardRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -48,6 +59,44 @@ class InitRoute extends PageRouteInfo<void> {
   static const String name = 'InitRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CuisineScreen]
+class CuisineRoute extends PageRouteInfo<CuisineRouteArgs> {
+  CuisineRoute({
+    Key? key,
+    required CuisineModel cuisine,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CuisineRoute.name,
+          args: CuisineRouteArgs(
+            key: key,
+            cuisine: cuisine,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CuisineRoute';
+
+  static const PageInfo<CuisineRouteArgs> page =
+      PageInfo<CuisineRouteArgs>(name);
+}
+
+class CuisineRouteArgs {
+  const CuisineRouteArgs({
+    this.key,
+    required this.cuisine,
+  });
+
+  final Key? key;
+
+  final CuisineModel cuisine;
+
+  @override
+  String toString() {
+    return 'CuisineRouteArgs{key: $key, cuisine: $cuisine}';
+  }
 }
 
 /// generated route for

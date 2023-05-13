@@ -1,5 +1,6 @@
 import 'package:appinio_restaurant/common/injector/injector.dart';
 import 'package:appinio_restaurant/l10n/localization.dart';
+import 'package:appinio_restaurant/presentation/helper/hero_tag.dart';
 import 'package:appinio_restaurant/presentation/screens/cuisines/provider.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -64,32 +65,38 @@ class CuisinesScreen extends StatelessWidget with AutoRouteWrapper {
                 itemCount: cuisines.length,
                 itemBuilder: (context, index) {
                   final cuisine = cuisines[index];
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: Center(
-                          child: CachedNetworkImage(
-                            imageUrl: cuisine.image,
-                            imageBuilder: (context, imageProvider) {
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(12.0),
-                                child: Image(image: imageProvider),
-                              );
-                            },
+                  return GestureDetector(
+                    onTap: () => provider.onCuisineTap(cuisine),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: Hero(
+                              tag: HeroTagHelper.cuisineImage(cuisine),
+                              child: CachedNetworkImage(
+                                imageUrl: cuisine.image,
+                                imageBuilder: (context, imageProvider) {
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    child: Image(image: imageProvider),
+                                  );
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        cuisine.name,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                        const SizedBox(height: 12),
+                        Text(
+                          cuisine.name,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 },
               ),

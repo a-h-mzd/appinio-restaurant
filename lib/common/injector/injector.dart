@@ -1,4 +1,5 @@
 import 'package:appinio_restaurant/common/injector/injector.config.dart';
+import 'package:appinio_restaurant/presentation/common/appinio_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -34,27 +35,27 @@ Future<T> injectAsync<T extends Object>({
       param2: param2,
     );
 
-T injectProvider<T extends ChangeNotifier>(
+T injectProvider<T extends AppinioProvider>(
   BuildContext context, {
   String? instanceName,
   dynamic param,
 }) =>
     inject<T>(
       instanceName: instanceName,
-      param1: param,
-      param2: context,
+      param1: context,
+      param2: param,
     );
 
-extension InjectProvider on T Function<T extends ChangeNotifier>(
+extension InjectProvider on T Function<T extends AppinioProvider>(
   BuildContext context, {
   String? instanceName,
   dynamic param,
 }) {
-  T Function<T extends ChangeNotifier>(BuildContext context) using(
+  T Function<T extends AppinioProvider>(BuildContext context) using(
     dynamic param, {
     String? instanceName,
   }) =>
-      <T extends ChangeNotifier>(BuildContext c) => this(
+      <T extends AppinioProvider>(BuildContext c) => this(
             c,
             instanceName: instanceName,
             param: param,

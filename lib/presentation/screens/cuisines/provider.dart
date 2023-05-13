@@ -2,15 +2,18 @@ import 'dart:async';
 
 import 'package:appinio_restaurant/domain/cuisines/models/cuisine.dart';
 import 'package:appinio_restaurant/domain/cuisines/usecase.dart';
-import 'package:flutter/foundation.dart';
+import 'package:appinio_restaurant/presentation/common/appinio_provider.dart';
+import 'package:appinio_restaurant/presentation/screens/cuisines/router.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class CuisinesProvider extends ChangeNotifier {
+class CuisinesProvider extends AppinioProvider<CuisinesRouter> {
   final CuisinesUsecase cuisinesUsecase;
 
   CuisinesProvider({
+    required super.router,
     required this.cuisinesUsecase,
+    @factoryParam required super.context,
   }) {
     sub = _cuisinesStream.listen(_cuisineStreamListener);
   }
@@ -45,6 +48,10 @@ class CuisinesProvider extends ChangeNotifier {
   void onSearchTermChanged(String searchTerm) {
     _searchTerm = searchTerm;
     notifyListeners();
+  }
+
+  void onCuisineTap(CuisineModel cuisine) {
+    router.showCuisineDetails(cuisine);
   }
 
   @override
