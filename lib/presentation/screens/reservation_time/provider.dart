@@ -23,7 +23,10 @@ class ReservationTimeProvider extends AppinioProvider<ReservationTimeRouter> {
     notifyListeners();
   }
 
-  late int _selectedHour = timeOfDayNow.hour;
+  final minHour = 8;
+  final maxHour = 21;
+
+  late int _selectedHour = timeOfDayNow.hour.clamp(minHour, maxHour);
 
   Time get selectedTimeOfDay => Time(hour: _selectedHour, minute: 0);
 
@@ -33,6 +36,12 @@ class ReservationTimeProvider extends AppinioProvider<ReservationTimeRouter> {
   }
 
   void onNextTap() {
-    //
+    final selectedDate = DateTime(
+      this.selectedDate.year,
+      this.selectedDate.month,
+      this.selectedDate.day,
+      _selectedHour,
+    );
+    router.openReservationScreen(selectedDate);
   }
 }

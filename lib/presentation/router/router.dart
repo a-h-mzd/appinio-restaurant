@@ -2,6 +2,7 @@ import 'package:appinio_restaurant/domain/cuisines/models/cuisine.dart';
 import 'package:appinio_restaurant/presentation/screens/cuisine/screen.dart';
 import 'package:appinio_restaurant/presentation/screens/cuisines/screen.dart';
 import 'package:appinio_restaurant/presentation/screens/dashboard/screen.dart';
+import 'package:appinio_restaurant/presentation/screens/reservation/screen.dart';
 import 'package:appinio_restaurant/presentation/screens/reservation_time/screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
@@ -29,5 +30,6 @@ class AppRouter extends _$AppRouter {
       ],
     ),
     AutoRoute(page: CuisineRoute.page),
+    AutoRoute(page: ReservationRoute.page),
   ];
 }

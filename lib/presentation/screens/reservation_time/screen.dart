@@ -43,18 +43,21 @@ class ReservationTimeScreen extends StatelessWidget with AutoRouteWrapper {
                 fit: BoxFit.scaleDown,
                 alignment: Alignment.topCenter,
                 child: Theme(
-                  data: ThemeData.from(
+                  data: ThemeData(
                     colorScheme: ColorScheme.fromSeed(
                       seedColor: Colors.purple,
                     ),
                   ),
                   child: showPicker(
-                    elevation: 1,
+                    elevation: 1.0,
                     hideButtons: true,
                     is24HrFormat: true,
                     disableMinute: true,
                     iosStylePicker: true,
                     isInlinePicker: true,
+                    minHour: provider.minHour + .0,
+                    maxHour: provider.maxHour + .0,
+                    isOnChangeValueMode: true,
                     value: provider.selectedTimeOfDay,
                     onChange: provider.updateSelectedTimeOfDay,
                   ) as Widget,
@@ -83,13 +86,13 @@ class ReservationTimeScreen extends StatelessWidget with AutoRouteWrapper {
                       text: context.localizations.next,
                     ),
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const Icon(
                     Icons.arrow_right_alt_rounded,
-                    size: 32,
+                    size: 32.0,
                   ),
                 ],
               ),
