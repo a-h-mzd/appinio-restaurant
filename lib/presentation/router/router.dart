@@ -1,3 +1,4 @@
+import 'package:appinio_restaurant/presentation/screens/dashboard/screen.dart';
 import 'package:appinio_restaurant/presentation/screens/init.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:injectable/injectable.dart';
@@ -14,6 +15,13 @@ class AppRouter extends _$AppRouter {
 
   @override
   final routes = <AutoRoute>[
-    AutoRoute(page: InitRoute.page, path: '/'),
+    AutoRoute(
+      page: DashboardRoute.page,
+      path: '/',
+      children: [
+        AutoRoute(page: InitRoute.page),
+        AutoRoute(page: InitRoute.page),
+      ],
+    ),
   ];
 }

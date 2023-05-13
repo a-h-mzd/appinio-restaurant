@@ -1,3 +1,11 @@
 {
-  "@@locale": "en"
+  "@@locale": "en",
+  "cuisines": "cuisines",
+  "@cuisines": {
+    "type": "text"
+  },
+  "reserveTable": "Reserve table",
+  "@reserveTable": {
+    "type": "text"
+  }
 }
