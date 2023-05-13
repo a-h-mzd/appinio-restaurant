@@ -11,7 +11,7 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoTabsRouter.pageView(
       routes: const [
-        InitRoute(),
+        CuisinesRoute(),
         InitRoute(),
       ],
       builder: (context, child, pageController) {

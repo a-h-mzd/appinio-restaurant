@@ -27,6 +27,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const DashboardScreen(),
       );
     },
+    CuisinesRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CuisinesScreen()),
+      );
+    },
   };
 }
 
@@ -54,6 +60,20 @@ class DashboardRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'DashboardRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CuisinesScreen]
+class CuisinesRoute extends PageRouteInfo<void> {
+  const CuisinesRoute({List<PageRouteInfo>? children})
+      : super(
+          CuisinesRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CuisinesRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

@@ -1,6 +1,7 @@
 import 'package:appinio_restaurant/common/injector/injector.dart';
 import 'package:appinio_restaurant/domain/cuisines/usecase.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -31,7 +32,7 @@ class InitScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Image.network(doc.image),
+                    CachedNetworkImage(imageUrl: doc.image),
                     const SizedBox(height: 20),
                     Text(
                       doc.name,

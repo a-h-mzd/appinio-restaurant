@@ -1,3 +1,4 @@
+import 'package:appinio_restaurant/presentation/screens/cuisines/screen.dart';
 import 'package:appinio_restaurant/presentation/screens/dashboard/screen.dart';
 import 'package:appinio_restaurant/presentation/screens/init.dart';
 import 'package:auto_route/auto_route.dart';
@@ -19,7 +20,7 @@ class AppRouter extends _$AppRouter {
       page: DashboardRoute.page,
       path: '/',
       children: [
-        AutoRoute(page: InitRoute.page),
+        AutoRoute(page: CuisinesRoute.page),
         AutoRoute(page: InitRoute.page),
       ],
     ),
