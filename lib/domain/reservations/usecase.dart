@@ -27,6 +27,34 @@ class ReservationsUsecase {
         )
         .snapshots();
   }
+
+  Future<void> reserve({
+    required final DateTime date,
+    required final String tableId,
+    required final String uid,
+    required final String username,
+  }) {
+    return reservationsRepository.reserve(
+      date: date.asFirebaseDocumentPath,
+      reservation: MapEntry(
+        tableId,
+        {
+          'user_id': uid,
+          'username': username,
+        },
+      ),
+    );
+  }
+
+  Future<void> cancelReservation({
+    required final DateTime date,
+    required final String tableId,
+  }) {
+    return reservationsRepository.cancelReservation(
+      date: date.asFirebaseDocumentPath,
+      tableId: tableId,
+    );
+  }
 }
 
 extension on DateTime {

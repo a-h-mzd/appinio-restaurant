@@ -70,8 +70,20 @@ class ReservationProvider extends AppinioProvider<ReservationRouter> {
     final reservationStatus = reservationStatusFor(tableId: tableId);
     reservationStatus.whenOrNull(
       reserved: null,
-      available: () {},
-      reservedByUser: (username) {},
+      available: () {
+        reservationsUsecase.reserve(
+          date: selectedDate,
+          tableId: tableId,
+          uid: firebaseAuth.uid,
+          username: 'AmirTest',
+        );
+      },
+      reservedByUser: (username) {
+        reservationsUsecase.cancelReservation(
+          date: selectedDate,
+          tableId: tableId,
+        );
+      },
     );
   }
 
