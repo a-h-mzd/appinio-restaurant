@@ -26,10 +26,21 @@ abstract class _$AppRouter extends RootStackRouter {
         )),
       );
     },
+    ReservationRoute.name: (routeData) {
+      final args = routeData.argsAs<ReservationRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: ReservationScreen(
+          key: args.key,
+          selectedDate: args.selectedDate,
+        )),
+      );
+    },
     DashboardRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const DashboardScreen(),
+        child: WrappedRoute(child: const DashboardScreen()),
       );
     },
     ReservationTimeRoute.name: (routeData) {
@@ -42,16 +53,6 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(child: const CuisinesScreen()),
-      );
-    },
-    ReservationRoute.name: (routeData) {
-      final args = routeData.argsAs<ReservationRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: ReservationScreen(
-          key: args.key,
-          selectedDate: args.selectedDate,
-        ),
       );
     },
   };
@@ -96,6 +97,44 @@ class CuisineRouteArgs {
 }
 
 /// generated route for
+/// [ReservationScreen]
+class ReservationRoute extends PageRouteInfo<ReservationRouteArgs> {
+  ReservationRoute({
+    Key? key,
+    required DateTime selectedDate,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ReservationRoute.name,
+          args: ReservationRouteArgs(
+            key: key,
+            selectedDate: selectedDate,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ReservationRoute';
+
+  static const PageInfo<ReservationRouteArgs> page =
+      PageInfo<ReservationRouteArgs>(name);
+}
+
+class ReservationRouteArgs {
+  const ReservationRouteArgs({
+    this.key,
+    required this.selectedDate,
+  });
+
+  final Key? key;
+
+  final DateTime selectedDate;
+
+  @override
+  String toString() {
+    return 'ReservationRouteArgs{key: $key, selectedDate: $selectedDate}';
+  }
+}
+
+/// generated route for
 /// [DashboardScreen]
 class DashboardRoute extends PageRouteInfo<void> {
   const DashboardRoute({List<PageRouteInfo>? children})
@@ -135,42 +174,4 @@ class CuisinesRoute extends PageRouteInfo<void> {
   static const String name = 'CuisinesRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [ReservationScreen]
-class ReservationRoute extends PageRouteInfo<ReservationRouteArgs> {
-  ReservationRoute({
-    Key? key,
-    required DateTime selectedDate,
-    List<PageRouteInfo>? children,
-  }) : super(
-          ReservationRoute.name,
-          args: ReservationRouteArgs(
-            key: key,
-            selectedDate: selectedDate,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'ReservationRoute';
-
-  static const PageInfo<ReservationRouteArgs> page =
-      PageInfo<ReservationRouteArgs>(name);
-}
-
-class ReservationRouteArgs {
-  const ReservationRouteArgs({
-    this.key,
-    required this.selectedDate,
-  });
-
-  final Key? key;
-
-  final DateTime selectedDate;
-
-  @override
-  String toString() {
-    return 'ReservationRouteArgs{key: $key, selectedDate: $selectedDate}';
-  }
 }

@@ -27,5 +27,17 @@
   "next": "Next",
   "@next": {
     "type": "text"
+  },
+  "login": "login",
+  "@login": {
+    "type": "text"
+  },
+  "loggingIn": "'Logging in...'",
+  "@loggingIn": {
+    "type": "text"
+  },
+  "pleaseWait": "'Please wait...'",
+  "@pleaseWait": {
+    "type": "text"
   }
 }

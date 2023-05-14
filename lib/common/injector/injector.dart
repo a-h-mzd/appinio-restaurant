@@ -46,6 +46,18 @@ T injectProvider<T extends AppinioProvider>(
       param2: param,
     );
 
+T injectChangeNotifier<T extends ChangeNotifier>(
+  BuildContext context, {
+  String? instanceName,
+  dynamic param1,
+  dynamic param2,
+}) =>
+    inject<T>(
+      instanceName: instanceName,
+      param1: param1,
+      param2: param2,
+    );
+
 extension InjectProvider on T Function<T extends AppinioProvider>(
   BuildContext context, {
   String? instanceName,

@@ -16,14 +16,8 @@ class TableModel with _$TableModel {
       _$TableModelFromJson(json);
 }
 
-extension TableQuery on QueryDocumentSnapshot<TableModel> {
-  String get name => data().name;
-  int get chairCount => data().chairCount.toInt();
-
-  Map<String, dynamic> modelJson() => data().toJson();
-
-  Map<String, dynamic> toJson() {
-    final queryInfo = {'id': id};
-    return modelJson()..addAll(queryInfo);
+extension TableQuery on Iterable<QueryDocumentSnapshot<TableModel>> {
+  Map<String, TableModel> get asTableListMap {
+    return Map.fromEntries(map((e) => MapEntry(e.id, e.data())));
   }
 }
