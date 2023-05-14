@@ -30,9 +30,11 @@ class ReservationProvider extends AppinioProvider<ReservationRouter> {
     tablesSubscription =
         tablesUsecase.tablesStream().listen(_tableStreamListener);
     reservationsSubscription = reservationsUsecase
-        .tablesStream(date: selectedDate)
+        .reservationsStream(date: selectedDate)
         .listen(_reservationsStreamListener);
   }
+
+  String get _uid => firebaseAuth.uid;
 
   late final StreamSubscription tablesSubscription;
   late final StreamSubscription reservationsSubscription;
@@ -47,7 +49,7 @@ class ReservationProvider extends AppinioProvider<ReservationRouter> {
   ReservationStatus reservationStatusFor({required String tableId}) {
     final reservation = _reservations?.data()?.reservations?[tableId];
     return ReservationStatus.by(
-      userId: firebaseAuth.uid,
+      userId: _uid,
       reservation: reservation,
     );
   }
@@ -66,22 +68,44 @@ class ReservationProvider extends AppinioProvider<ReservationRouter> {
 
   void onTableTap({
     required final String tableId,
+    required final TableModel table,
   }) {
     final reservationStatus = reservationStatusFor(tableId: tableId);
     reservationStatus.whenOrNull(
       reserved: null,
       available: () {
-        reservationsUsecase.reserve(
-          date: selectedDate,
+        void onBookNowPressed(String username) {
+          reservationsUsecase.reserve(
+            date: selectedDate,
+            tableId: tableId,
+            uid: _uid,
+            username: username,
+          );
+        }
+
+        router.showReservationBottomSheet(
           tableId: tableId,
-          uid: firebaseAuth.uid,
-          username: 'AmirTest',
+          table: table,
+          selectedDate: selectedDate,
+          reservationsUsecase: reservationsUsecase,
+          onBookNowPressed: onBookNowPressed,
         );
       },
       reservedByUser: (username) {
-        reservationsUsecase.cancelReservation(
-          date: selectedDate,
+        void onCancelBookingPressed() {
+          reservationsUsecase.cancelReservation(
+            date: selectedDate,
+            tableId: tableId,
+          );
+        }
+
+        router.showReservationCancelBottomSheet(
+          userId: _uid,
           tableId: tableId,
+          table: table,
+          selectedDate: selectedDate,
+          reservationsUsecase: reservationsUsecase,
+          onCancelBookingPressed: onCancelBookingPressed,
         );
       },
     );

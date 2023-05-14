@@ -43,5 +43,33 @@
   "tableThemes": "Table Themes",
   "@tableThemes": {
     "type": "text"
+  },
+  "username": "Username",
+  "@username": {
+    "type": "text"
+  },
+  "bookNow": "Book Now",
+  "@bookNow": {
+    "type": "text"
+  },
+  "chairCount": "People: {chairCount}",
+  "@chairCount": {
+    "placeholders": {
+      "chairCount": {
+        "type": "int"
+      }
+    }
+  },
+  "cancelBookingQuestion": "Are you sure you want to cancel your booking?",
+  "@cancelBookingQuestion": {
+    "type": "text"
+  },
+  "cancelBookingAnswerNegative": "No, Go back",
+  "@cancelBookingAnswerNegative": {
+    "type": "text"
+  },
+  "cancelBookingAnswerPositive": "Yes, Cancel",
+  "@cancelBookingAnswerPositive": {
+    "type": "text"
   }
 }

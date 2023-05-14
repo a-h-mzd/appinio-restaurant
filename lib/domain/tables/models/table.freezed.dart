@@ -22,7 +22,7 @@ TableModel _$TableModelFromJson(Map<String, dynamic> json) {
 mixin _$TableModel {
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'chair_count')
-  num get chairCount => throw _privateConstructorUsedError;
+  num get numberOfChairs => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,7 @@ abstract class $TableModelCopyWith<$Res> {
           TableModel value, $Res Function(TableModel) then) =
       _$TableModelCopyWithImpl<$Res, TableModel>;
   @useResult
-  $Res call({String name, @JsonKey(name: 'chair_count') num chairCount});
+  $Res call({String name, @JsonKey(name: 'chair_count') num numberOfChairs});
 }
 
 /// @nodoc
@@ -53,16 +53,16 @@ class _$TableModelCopyWithImpl<$Res, $Val extends TableModel>
   @override
   $Res call({
     Object? name = null,
-    Object? chairCount = null,
+    Object? numberOfChairs = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      chairCount: null == chairCount
-          ? _value.chairCount
-          : chairCount // ignore: cast_nullable_to_non_nullable
+      numberOfChairs: null == numberOfChairs
+          ? _value.numberOfChairs
+          : numberOfChairs // ignore: cast_nullable_to_non_nullable
               as num,
     ) as $Val);
   }
@@ -76,7 +76,7 @@ abstract class _$$_TableModelCopyWith<$Res>
       __$$_TableModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, @JsonKey(name: 'chair_count') num chairCount});
+  $Res call({String name, @JsonKey(name: 'chair_count') num numberOfChairs});
 }
 
 /// @nodoc
@@ -91,16 +91,16 @@ class __$$_TableModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? chairCount = null,
+    Object? numberOfChairs = null,
   }) {
     return _then(_$_TableModel(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      chairCount: null == chairCount
-          ? _value.chairCount
-          : chairCount // ignore: cast_nullable_to_non_nullable
+      numberOfChairs: null == numberOfChairs
+          ? _value.numberOfChairs
+          : numberOfChairs // ignore: cast_nullable_to_non_nullable
               as num,
     ));
   }
@@ -108,10 +108,11 @@ class __$$_TableModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TableModel with DiagnosticableTreeMixin implements _TableModel {
+class _$_TableModel extends _TableModel with DiagnosticableTreeMixin {
   const _$_TableModel(
       {required this.name,
-      @JsonKey(name: 'chair_count') required this.chairCount});
+      @JsonKey(name: 'chair_count') required this.numberOfChairs})
+      : super._();
 
   factory _$_TableModel.fromJson(Map<String, dynamic> json) =>
       _$$_TableModelFromJson(json);
@@ -120,11 +121,11 @@ class _$_TableModel with DiagnosticableTreeMixin implements _TableModel {
   final String name;
   @override
   @JsonKey(name: 'chair_count')
-  final num chairCount;
+  final num numberOfChairs;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TableModel(name: $name, chairCount: $chairCount)';
+    return 'TableModel(name: $name, numberOfChairs: $numberOfChairs)';
   }
 
   @override
@@ -133,7 +134,7 @@ class _$_TableModel with DiagnosticableTreeMixin implements _TableModel {
     properties
       ..add(DiagnosticsProperty('type', 'TableModel'))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('chairCount', chairCount));
+      ..add(DiagnosticsProperty('numberOfChairs', numberOfChairs));
   }
 
   @override
@@ -142,13 +143,13 @@ class _$_TableModel with DiagnosticableTreeMixin implements _TableModel {
         (other.runtimeType == runtimeType &&
             other is _$_TableModel &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.chairCount, chairCount) ||
-                other.chairCount == chairCount));
+            (identical(other.numberOfChairs, numberOfChairs) ||
+                other.numberOfChairs == numberOfChairs));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, chairCount);
+  int get hashCode => Object.hash(runtimeType, name, numberOfChairs);
 
   @JsonKey(ignore: true)
   @override
@@ -164,11 +165,12 @@ class _$_TableModel with DiagnosticableTreeMixin implements _TableModel {
   }
 }
 
-abstract class _TableModel implements TableModel {
+abstract class _TableModel extends TableModel {
   const factory _TableModel(
           {required final String name,
-          @JsonKey(name: 'chair_count') required final num chairCount}) =
+          @JsonKey(name: 'chair_count') required final num numberOfChairs}) =
       _$_TableModel;
+  const _TableModel._() : super._();
 
   factory _TableModel.fromJson(Map<String, dynamic> json) =
       _$_TableModel.fromJson;
@@ -177,7 +179,7 @@ abstract class _TableModel implements TableModel {
   String get name;
   @override
   @JsonKey(name: 'chair_count')
-  num get chairCount;
+  num get numberOfChairs;
   @override
   @JsonKey(ignore: true)
   _$$_TableModelCopyWith<_$_TableModel> get copyWith =>

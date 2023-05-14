@@ -14,7 +14,7 @@ class ReservationsUsecase {
     required this.reservationsRepository,
   });
 
-  Stream<DocumentSnapshot<ReservationsModel>> tablesStream({
+  Stream<DocumentSnapshot<ReservationsModel>> reservationsStream({
     required final DateTime date,
   }) {
     return reservationsRepository

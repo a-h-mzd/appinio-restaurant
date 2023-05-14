@@ -9,11 +9,14 @@ part 'table.g.dart';
 class TableModel with _$TableModel {
   const factory TableModel({
     required final String name,
-    @JsonKey(name: 'chair_count') required final num chairCount,
+    @JsonKey(name: 'chair_count') required final num numberOfChairs,
   }) = _TableModel;
+  const TableModel._();
 
   factory TableModel.fromJson(Map<String, Object?> json) =>
       _$TableModelFromJson(json);
+
+  int get chairCount => numberOfChairs.toInt();
 }
 
 extension TableQuery on Iterable<QueryDocumentSnapshot<TableModel>> {

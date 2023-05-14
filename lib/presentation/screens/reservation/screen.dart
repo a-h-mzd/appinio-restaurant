@@ -62,7 +62,10 @@ class ReservationScreen extends StatelessWidget with AutoRouteWrapper {
               table: table,
               reservationStatus: reservationStatus,
               ignoreTaps: reservationStatus is ReservationStatusReserved,
-              onTap: () => provider.onTableTap(tableId: tableId),
+              onTap: () => provider.onTableTap(
+                table: table,
+                tableId: tableId,
+              ),
             );
           },
         ),

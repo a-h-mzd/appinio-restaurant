@@ -8,11 +8,11 @@ part of 'table.dart';
 
 _$_TableModel _$$_TableModelFromJson(Map json) => _$_TableModel(
       name: json['name'] as String,
-      chairCount: json['chair_count'] as num,
+      numberOfChairs: json['chair_count'] as num,
     );
 
 Map<String, dynamic> _$$_TableModelToJson(_$_TableModel instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'chair_count': instance.chairCount,
+      'chair_count': instance.numberOfChairs,
     };
