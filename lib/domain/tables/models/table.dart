@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'table.freezed.dart';
@@ -6,7 +7,7 @@ part 'table.g.dart';
 
 @freezed
 class TableModel with _$TableModel {
-  factory TableModel({
+  const factory TableModel({
     required final String name,
     @JsonKey(name: 'chair_count') required final num chairCount,
   }) = _TableModel;

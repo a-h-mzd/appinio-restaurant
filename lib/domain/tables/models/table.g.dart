@@ -6,8 +6,7 @@ part of 'table.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TableModel _$$_TableModelFromJson(Map<String, dynamic> json) =>
-    _$_TableModel(
+_$_TableModel _$$_TableModelFromJson(Map json) => _$_TableModel(
       name: json['name'] as String,
       chairCount: json['chair_count'] as num,
     );

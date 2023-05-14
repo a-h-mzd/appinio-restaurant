@@ -6,8 +6,7 @@ part of 'cuisine.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CuisineModel _$$_CuisineModelFromJson(Map<String, dynamic> json) =>
-    _$_CuisineModel(
+_$_CuisineModel _$$_CuisineModelFromJson(Map json) => _$_CuisineModel(
       name: json['name'] as String,
       image: json['image'] as String,
       ingredients: (json['ingredients'] as List<dynamic>)

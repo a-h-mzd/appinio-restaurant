@@ -137,8 +137,8 @@ class __$$_CuisineModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CuisineModel implements _CuisineModel {
-  _$_CuisineModel(
+class _$_CuisineModel with DiagnosticableTreeMixin implements _CuisineModel {
+  const _$_CuisineModel(
       {required this.name,
       required this.image,
       required final List<String> ingredients,
@@ -170,8 +170,19 @@ class _$_CuisineModel implements _CuisineModel {
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'CuisineModel(name: $name, image: $image, ingredients: $ingredients, procedure: $procedure)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CuisineModel'))
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('ingredients', ingredients))
+      ..add(DiagnosticsProperty('procedure', procedure));
   }
 
   @override
@@ -211,7 +222,7 @@ class _$_CuisineModel implements _CuisineModel {
 }
 
 abstract class _CuisineModel implements CuisineModel {
-  factory _CuisineModel(
+  const factory _CuisineModel(
       {required final String name,
       required final String image,
       required final List<String> ingredients,

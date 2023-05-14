@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'cuisine.freezed.dart';
@@ -5,7 +6,7 @@ part 'cuisine.g.dart';
 
 @freezed
 class CuisineModel with _$CuisineModel {
-  factory CuisineModel({
+  const factory CuisineModel({
     required final String name,
     required final String image,
     required final List<String> ingredients,

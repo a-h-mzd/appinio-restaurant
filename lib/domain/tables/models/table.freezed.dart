@@ -108,8 +108,8 @@ class __$$_TableModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TableModel implements _TableModel {
-  _$_TableModel(
+class _$_TableModel with DiagnosticableTreeMixin implements _TableModel {
+  const _$_TableModel(
       {required this.name,
       @JsonKey(name: 'chair_count') required this.chairCount});
 
@@ -123,8 +123,17 @@ class _$_TableModel implements _TableModel {
   final num chairCount;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TableModel(name: $name, chairCount: $chairCount)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TableModel'))
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('chairCount', chairCount));
   }
 
   @override
@@ -156,7 +165,7 @@ class _$_TableModel implements _TableModel {
 }
 
 abstract class _TableModel implements TableModel {
-  factory _TableModel(
+  const factory _TableModel(
           {required final String name,
           @JsonKey(name: 'chair_count') required final num chairCount}) =
       _$_TableModel;
