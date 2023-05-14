@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:appinio_restaurant/domain/reservations/models/reservation.dart';
+import 'package:appinio_restaurant/domain/reservations/models/reservation_status.dart';
 import 'package:appinio_restaurant/domain/reservations/models/reservations.dart';
 import 'package:appinio_restaurant/domain/reservations/usecase.dart';
 import 'package:appinio_restaurant/domain/tables/models/table.dart';
@@ -27,7 +27,8 @@ class ReservationProvider extends AppinioProvider<ReservationRouter> {
     required this.tablesUsecase,
     required this.firebaseAuth,
   }) {
-    tablesUsecase.tablesStream().listen(_tableStreamListener);
+    tablesSubscription =
+        tablesUsecase.tablesStream().listen(_tableStreamListener);
     reservationsSubscription = reservationsUsecase
         .tablesStream(date: selectedDate)
         .listen(_reservationsStreamListener);
@@ -39,14 +40,17 @@ class ReservationProvider extends AppinioProvider<ReservationRouter> {
   QuerySnapshot<TableModel>? _tables;
   DocumentSnapshot<ReservationsModel>? _reservations;
 
-  String get uid => firebaseAuth.uid;
-
   bool get isLoading => _tables == null || _reservations == null;
 
   Map<String, TableModel> get tables => _tables?.docs.asTableListMap ?? {};
 
-  ReservationModel? reservationFor({required String tableId}) =>
-      _reservations?.data()?.reservations?[tableId];
+  ReservationStatus reservationStatusFor({required String tableId}) {
+    final reservation = _reservations?.data()?.reservations?[tableId];
+    return ReservationStatus.by(
+      userId: firebaseAuth.uid,
+      reservation: reservation,
+    );
+  }
 
   void _tableStreamListener(QuerySnapshot<TableModel> snapshot) {
     _tables = snapshot;
@@ -58,6 +62,17 @@ class ReservationProvider extends AppinioProvider<ReservationRouter> {
   ) {
     _reservations = snapshot;
     notifyListeners();
+  }
+
+  void onTableTap({
+    required final String tableId,
+  }) {
+    final reservationStatus = reservationStatusFor(tableId: tableId);
+    reservationStatus.whenOrNull(
+      reserved: null,
+      available: () {},
+      reservedByUser: (username) {},
+    );
   }
 
   @override

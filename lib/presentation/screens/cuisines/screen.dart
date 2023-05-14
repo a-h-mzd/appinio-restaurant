@@ -37,7 +37,6 @@ class CuisinesScreen extends StatelessWidget with AutoRouteWrapper {
           SliverAppBar(
             pinned: true,
             elevation: 0,
-            collapsedHeight: MediaQuery.of(context).viewPadding.top,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             title: TextField(
               onChanged: provider.onSearchTermChanged,

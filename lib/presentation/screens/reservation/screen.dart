@@ -1,4 +1,8 @@
 import 'package:appinio_restaurant/common/injector/injector.dart';
+import 'package:appinio_restaurant/domain/reservations/models/reservation_status.dart';
+import 'package:appinio_restaurant/l10n/localization.dart';
+import 'package:appinio_restaurant/presentation/components/cupertino_sliver_navigation_bar.dart';
+import 'package:appinio_restaurant/presentation/screens/reservation/components/table_card.dart';
 import 'package:appinio_restaurant/presentation/screens/reservation/provider.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -25,31 +29,55 @@ class ReservationScreen extends StatelessWidget with AutoRouteWrapper {
   Widget build(BuildContext context) {
     final ReservationProvider provider = context.watch();
 
-    final Widget body;
+    final Widget tablesList;
     if (provider.isLoading) {
-      body = const Center(
-        child: CircularProgressIndicator.adaptive(),
+      tablesList = const SliverFillRemaining(
+        child: Center(
+          child: CircularProgressIndicator.adaptive(),
+        ),
       );
     } else {
       final tables = provider.tables.entries.toList();
 
-      body = ListView.builder(
-        itemCount: tables.length,
-        itemBuilder: (context, index) {
-          final tableId = tables[index].key;
-          final table = tables[index].value;
+      tablesList = SliverPadding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20.0,
+          vertical: 20.0,
+        ),
+        sliver: SliverGrid.builder(
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            childAspectRatio: TableCard.aspectRatio,
+            maxCrossAxisExtent: 200,
+            crossAxisSpacing: 20.0,
+            mainAxisSpacing: 20.0,
+          ),
+          itemCount: tables.length,
+          itemBuilder: (context, index) {
+            final tableId = tables[index].key;
+            final table = tables[index].value;
 
-          return Row(
-            children: [
-              Text(tableId),
-              const Text(': '),
-              Text(table.toString()),
-            ],
-          );
-        },
+            final reservationStatus =
+                provider.reservationStatusFor(tableId: tableId);
+            return TableCard(
+              table: table,
+              reservationStatus: reservationStatus,
+              ignoreTaps: reservationStatus is ReservationStatusReserved,
+              onTap: () => provider.onTableTap(tableId: tableId),
+            );
+          },
+        ),
       );
     }
 
-    return Scaffold(body: body);
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          TodoSliverNavigationBar(
+            title: context.localizations.tableThemes,
+          ),
+          tablesList,
+        ],
+      ),
+    );
   }
 }

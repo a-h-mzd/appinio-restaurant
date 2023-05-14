@@ -32,12 +32,16 @@
   "@login": {
     "type": "text"
   },
-  "loggingIn": "'Logging in...'",
+  "loggingIn": "Logging in...",
   "@loggingIn": {
     "type": "text"
   },
-  "pleaseWait": "'Please wait...'",
+  "pleaseWait": "Please wait...",
   "@pleaseWait": {
+    "type": "text"
+  },
+  "tableThemes": "Table Themes",
+  "@tableThemes": {
     "type": "text"
   }
 }
