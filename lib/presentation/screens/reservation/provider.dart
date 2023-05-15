@@ -106,6 +106,7 @@ class ReservationProvider extends AppinioProvider<ReservationRouter> {
 
         router.showReservationCancelBottomSheet(
           userId: _uid,
+          username: username,
           tableId: tableId,
           table: table,
           selectedDate: selectedDate,

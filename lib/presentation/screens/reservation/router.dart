@@ -34,6 +34,7 @@ class ReservationRouter extends AppinioRouter {
 
   void showReservationCancelBottomSheet({
     required String userId,
+    required String username,
     required String tableId,
     required TableModel table,
     required DateTime selectedDate,
@@ -48,6 +49,7 @@ class ReservationRouter extends AppinioRouter {
       builder: (context) {
         return ReservationCancelBottomSheet(
           userId: userId,
+          username: username,
           tableId: tableId,
           table: table,
           selectedDate: selectedDate,

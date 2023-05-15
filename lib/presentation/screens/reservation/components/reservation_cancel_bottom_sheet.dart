@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 
 class ReservationCancelBottomSheet extends StatelessWidget {
   final String userId;
+  final String username;
   final String tableId;
   final TableModel table;
   final DateTime selectedDate;
@@ -18,6 +19,7 @@ class ReservationCancelBottomSheet extends StatelessWidget {
   const ReservationCancelBottomSheet({
     super.key,
     required this.userId,
+    required this.username,
     required this.tableId,
     required this.table,
     required this.selectedDate,
@@ -63,6 +65,8 @@ class ReservationCancelBottomSheet extends StatelessWidget {
               ),
               const SizedBox(height: 20.0),
               Text(table.name),
+              const SizedBox(height: 10.0),
+              Text('Reserved as: $username'),
               const SizedBox(height: 10.0),
               Text(DateFormat('dd.MM.yyyy').format(selectedDate)),
               const SizedBox(height: 10.0),
