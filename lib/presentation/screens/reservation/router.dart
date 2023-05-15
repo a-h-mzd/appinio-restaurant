@@ -17,6 +17,7 @@ class ReservationRouter extends AppinioRouter {
   }) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
       barrierColor: Colors.black.withOpacity(.5),
       builder: (context) {
@@ -41,6 +42,7 @@ class ReservationRouter extends AppinioRouter {
   }) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
       barrierColor: Colors.black.withOpacity(.5),
       builder: (context) {

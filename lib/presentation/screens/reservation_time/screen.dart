@@ -27,77 +27,84 @@ class ReservationTimeScreen extends StatelessWidget with AutoRouteWrapper {
         left: false,
         right: false,
         bottom: false,
-        child: Column(
-          children: [
-            Flexible(
-              child: CalendarDatePicker(
-                firstDate: provider.dateTimeNow,
-                lastDate: provider.calendarLastDate,
-                initialDate: provider.selectedDate,
-                currentDate: provider.selectedDate,
-                onDateChanged: provider.updateSelectedDate,
-              ),
-            ),
-            Expanded(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                alignment: Alignment.topCenter,
-                child: Theme(
-                  data: ThemeData(
-                    colorScheme: ColorScheme.fromSeed(
-                      seedColor: Colors.purple,
-                    ),
-                  ),
-                  child: showPicker(
-                    elevation: 1.0,
-                    hideButtons: true,
-                    is24HrFormat: true,
-                    disableMinute: true,
-                    iosStylePicker: true,
-                    isInlinePicker: true,
-                    minHour: provider.minHour + .0,
-                    maxHour: provider.maxHour + .0,
-                    isOnChangeValueMode: true,
-                    value: provider.selectedTimeOfDay,
-                    onChange: provider.updateSelectedTimeOfDay,
-                  ) as Widget,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 440),
+            child: Column(
+              children: [
+                Flexible(
+                  child: CalendarDatePicker(
+                    firstDate: provider.dateTimeNow,
+                    lastDate: provider.calendarLastDate,
+                    initialDate: provider.selectedDate,
+                    currentDate: provider.selectedDate,
+                    onDateChanged: provider.updateSelectedDate,
                   ),
                 ),
-              ),
-              onPressed: provider.onNextTap,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text.rich(
-                    TextSpan(
-                      children: const [
-                        TextSpan(
-                          text: '  | ',
+                Expanded(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.topCenter,
+                    child: Theme(
+                      data: ThemeData(
+                        colorScheme: ColorScheme.fromSeed(
+                          seedColor: Colors.purple,
                         ),
-                      ],
-                      text: context.localizations.next,
-                    ),
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
+                      ),
+                      child: showPicker(
+                        elevation: 1.0,
+                        hideButtons: true,
+                        is24HrFormat: true,
+                        disableMinute: true,
+                        iosStylePicker: true,
+                        isInlinePicker: true,
+                        minHour: provider.minHour + .0,
+                        maxHour: provider.maxHour + .0,
+                        isOnChangeValueMode: true,
+                        value: provider.selectedTimeOfDay,
+                        onChange: provider.updateSelectedTimeOfDay,
+                      ) as Widget,
                     ),
                   ),
-                  const Icon(
-                    Icons.arrow_right_alt_rounded,
-                    size: 32.0,
+                ),
+                const SizedBox(height: 12.0),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
                   ),
-                ],
-              ),
+                  onPressed: provider.onNextTap,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text.rich(
+                        TextSpan(
+                          children: const [
+                            TextSpan(
+                              text: '  | ',
+                            ),
+                          ],
+                          text: context.localizations.next,
+                        ),
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Icon(
+                        Icons.arrow_right_alt_rounded,
+                        size: 32.0,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12.0),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

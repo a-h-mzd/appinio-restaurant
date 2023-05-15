@@ -71,5 +71,9 @@
   "cancelBookingAnswerPositive": "Yes, Cancel",
   "@cancelBookingAnswerPositive": {
     "type": "text"
+  },
+  "reservationUsernameHint": "ex.Zahra Rouhi",
+  "@reservationUsernameHint": {
+    "type": "text"
   }
 }

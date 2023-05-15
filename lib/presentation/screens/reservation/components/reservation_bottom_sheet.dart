@@ -1,11 +1,12 @@
 import 'package:appinio_restaurant/domain/reservations/usecase.dart';
 import 'package:appinio_restaurant/domain/tables/models/table.dart';
 import 'package:appinio_restaurant/l10n/localization.dart';
+import 'package:appinio_restaurant/presentation/components/text_field.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class ReservationBottomSheet extends StatelessWidget {
+class ReservationBottomSheet extends StatefulWidget {
   final String tableId;
   final TableModel table;
   final DateTime selectedDate;
@@ -22,6 +23,13 @@ class ReservationBottomSheet extends StatelessWidget {
   });
 
   @override
+  State<ReservationBottomSheet> createState() => _ReservationBottomSheetState();
+}
+
+class _ReservationBottomSheetState extends State<ReservationBottomSheet> {
+  String username = '';
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.hardEdge,
@@ -33,6 +41,9 @@ class ReservationBottomSheet extends StatelessWidget {
       ),
       constraints: const BoxConstraints(
         maxWidth: 400,
+      ),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: SafeArea(
         minimum: const EdgeInsets.all(30.0),
@@ -46,7 +57,7 @@ class ReservationBottomSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                table.name,
+                widget.table.name,
                 style: const TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.w600,
@@ -55,24 +66,34 @@ class ReservationBottomSheet extends StatelessWidget {
               const SizedBox(height: 20.0),
               Text(context.localizations.username),
               const SizedBox(height: 5.0),
-              // TODO(a-h-mzd): textfield
+              AppinioTextField(
+                keyboardType: TextInputType.name,
+                autofillHints: const [AutofillHints.name],
+                textCapitalization: TextCapitalization.words,
+                placeholder: context.localizations.reservationUsernameHint,
+                onChanged: (username) =>
+                    setState(() => this.username = username),
+              ),
               const SizedBox(height: 15.0),
-              Text(DateFormat('dd.MM.yyyy').format(selectedDate)),
+              Text(DateFormat('dd.MM.yyyy').format(widget.selectedDate)),
               const SizedBox(height: 10.0),
-              Text(DateFormat('HH:mma').format(selectedDate).toLowerCase()),
+              Text(
+                DateFormat('HH:mma').format(widget.selectedDate).toLowerCase(),
+              ),
               const SizedBox(height: 10.0),
-              Text(context.localizations.chairCount(table.chairCount)),
+              Text(context.localizations.chairCount(widget.table.chairCount)),
               const SizedBox(height: 30.0),
               StreamBuilder(
-                stream: reservationsUsecase
-                    .reservationsStream(date: selectedDate)
+                stream: widget.reservationsUsecase
+                    .reservationsStream(date: widget.selectedDate)
                     .map((snapshot) => snapshot.data()),
                 builder: (context, snapshot) {
                   final reservations = snapshot.data;
                   final tableReservation =
-                      reservations?.reservationFor(tableId: tableId);
-                  final isButtonActive =
-                      snapshot.hasData && tableReservation == null;
+                      reservations?.reservationFor(tableId: widget.tableId);
+                  final isButtonActive = snapshot.hasData &&
+                      tableReservation == null &&
+                      username.trim().isNotEmpty;
 
                   return ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -86,7 +107,7 @@ class ReservationBottomSheet extends StatelessWidget {
                     onPressed: isButtonActive
                         ? () {
                             context.router.pop();
-                            onBookNowPressed('AmirTest');
+                            widget.onBookNowPressed(username);
                           }
                         : null,
                     child: Text(

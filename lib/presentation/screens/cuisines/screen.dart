@@ -1,5 +1,6 @@
 import 'package:appinio_restaurant/common/injector/injector.dart';
 import 'package:appinio_restaurant/l10n/localization.dart';
+import 'package:appinio_restaurant/presentation/components/text_field.dart';
 import 'package:appinio_restaurant/presentation/helper/hero_tag.dart';
 import 'package:appinio_restaurant/presentation/screens/cuisines/provider.dart';
 import 'package:auto_route/auto_route.dart';
@@ -33,16 +34,17 @@ class CuisinesScreen extends StatelessWidget with AutoRouteWrapper {
 
     return Scaffold(
       body: CustomScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
           SliverAppBar(
             pinned: true,
             elevation: 0,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            title: TextField(
+            title: AppinioTextField(
+              autocorrect: false,
               onChanged: provider.onSearchTermChanged,
-              decoration: InputDecoration(
-                hintText: context.localizations.search,
-              ),
+              placeholder: context.localizations.search,
+              textCapitalization: TextCapitalization.sentences,
             ),
           ),
           if (cuisines.isEmpty)

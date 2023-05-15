@@ -38,6 +38,9 @@ class ReservationCancelBottomSheet extends StatelessWidget {
       constraints: const BoxConstraints(
         maxWidth: 400,
       ),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: SafeArea(
         minimum: const EdgeInsets.all(30.0),
         child: DefaultTextStyle.merge(
