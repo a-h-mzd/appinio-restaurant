@@ -7,6 +7,7 @@ import 'package:appinio_restaurant/domain/tables/models/table.dart';
 import 'package:appinio_restaurant/domain/tables/usecase.dart';
 import 'package:appinio_restaurant/presentation/common/appinio_provider.dart';
 import 'package:appinio_restaurant/presentation/helper/firebase_auth_helper.dart';
+import 'package:appinio_restaurant/presentation/screens/reservation/guards/date_guard.dart';
 import 'package:appinio_restaurant/presentation/screens/reservation/router.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
@@ -22,11 +23,15 @@ class ReservationProvider extends AppinioProvider<ReservationRouter> {
   ReservationProvider({
     required super.router,
     @factoryParam required super.context,
-    @factoryParam required this.selectedDate,
+    @factoryParam required String selectedDate,
     required this.reservationsUsecase,
     required this.tablesUsecase,
     required this.firebaseAuth,
-  }) {
+  }) : selectedDate = DateGuard.parseDate(selectedDate)! {
+    _initialize();
+  }
+
+  void _initialize() {
     tablesSubscription =
         tablesUsecase.tablesStream().listen(_tableStreamListener);
     reservationsSubscription = reservationsUsecase

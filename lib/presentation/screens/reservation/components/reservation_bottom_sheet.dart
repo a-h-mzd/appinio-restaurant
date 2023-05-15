@@ -28,6 +28,12 @@ class ReservationBottomSheet extends StatefulWidget {
 
 class _ReservationBottomSheetState extends State<ReservationBottomSheet> {
   String username = '';
+  late final reservationStream =
+      widget.reservationsUsecase.reservationsStream(date: widget.selectedDate);
+
+  void onUsernameChanged(String username) {
+    setState(() => this.username = username);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +77,7 @@ class _ReservationBottomSheetState extends State<ReservationBottomSheet> {
                 autofillHints: const [AutofillHints.name],
                 textCapitalization: TextCapitalization.words,
                 placeholder: context.localizations.reservationUsernameHint,
-                onChanged: (username) =>
-                    setState(() => this.username = username),
+                onChanged: onUsernameChanged,
               ),
               const SizedBox(height: 15.0),
               Text(DateFormat('dd.MM.yyyy').format(widget.selectedDate)),
@@ -84,11 +89,9 @@ class _ReservationBottomSheetState extends State<ReservationBottomSheet> {
               Text(context.localizations.chairCount(widget.table.chairCount)),
               const SizedBox(height: 30.0),
               StreamBuilder(
-                stream: widget.reservationsUsecase
-                    .reservationsStream(date: widget.selectedDate)
-                    .map((snapshot) => snapshot.data()),
+                stream: reservationStream,
                 builder: (context, snapshot) {
-                  final reservations = snapshot.data;
+                  final reservations = snapshot.data?.data();
                   final tableReservation =
                       reservations?.reservationFor(tableId: widget.tableId);
                   final isButtonActive = snapshot.hasData &&

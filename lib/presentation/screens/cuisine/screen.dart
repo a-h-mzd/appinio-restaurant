@@ -1,5 +1,4 @@
 import 'package:appinio_restaurant/common/injector/injector.dart';
-import 'package:appinio_restaurant/domain/cuisines/models/cuisine.dart';
 import 'package:appinio_restaurant/l10n/localization.dart';
 import 'package:appinio_restaurant/presentation/components/cupertino_sliver_navigation_bar.dart';
 import 'package:appinio_restaurant/presentation/helper/hero_tag.dart';
@@ -11,26 +10,43 @@ import 'package:provider/provider.dart';
 
 @RoutePage()
 class CuisineScreen extends StatelessWidget with AutoRouteWrapper {
-  final CuisineModel cuisine;
+  final String cuisineId;
 
   const CuisineScreen({
     super.key,
-    required this.cuisine,
+    @PathParam('id') required this.cuisineId,
   });
 
   @override
   Widget wrappedRoute(BuildContext context) {
     return ChangeNotifierProvider<CuisineProvider>(
-      create: injectProvider.using(cuisine),
+      create: injectProvider.using(cuisineId),
       child: this,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final CuisineProvider provider = context.read();
+    final CuisineProvider provider = context.watch();
+
+    final noCuisineFound = provider.noCuisineFound;
+    if (noCuisineFound) {
+      return Scaffold(
+        body: Center(
+          child: Text(context.localizations.noCuisineFound),
+        ),
+      );
+    }
 
     final cuisine = provider.cuisine;
+    if (cuisine == null) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator.adaptive(),
+        ),
+      );
+    }
+
     final ingredients = cuisine.ingredients;
     final procedure = cuisine.procedure;
 

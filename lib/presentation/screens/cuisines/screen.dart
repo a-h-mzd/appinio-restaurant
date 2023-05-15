@@ -65,9 +65,10 @@ class CuisinesScreen extends StatelessWidget with AutoRouteWrapper {
                 ),
                 itemCount: cuisines.length,
                 itemBuilder: (context, index) {
-                  final cuisine = cuisines[index];
+                  final cuisineId = cuisines[index].id;
+                  final cuisine = cuisines[index].data();
                   return GestureDetector(
-                    onTap: () => provider.onCuisineTap(cuisine),
+                    onTap: () => provider.onCuisineTap(cuisineId),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [

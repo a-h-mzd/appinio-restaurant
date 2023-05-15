@@ -16,18 +16,24 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     CuisineRoute.name: (routeData) {
-      final args = routeData.argsAs<CuisineRouteArgs>();
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<CuisineRouteArgs>(
+          orElse: () =>
+              CuisineRouteArgs(cuisineId: pathParams.getString('id')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
             child: CuisineScreen(
           key: args.key,
-          cuisine: args.cuisine,
+          cuisineId: args.cuisineId,
         )),
       );
     },
     ReservationRoute.name: (routeData) {
-      final args = routeData.argsAs<ReservationRouteArgs>();
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<ReservationRouteArgs>(
+          orElse: () =>
+              ReservationRouteArgs(selectedDate: pathParams.getString('date')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(
@@ -63,14 +69,15 @@ abstract class _$AppRouter extends RootStackRouter {
 class CuisineRoute extends PageRouteInfo<CuisineRouteArgs> {
   CuisineRoute({
     Key? key,
-    required CuisineModel cuisine,
+    required String cuisineId,
     List<PageRouteInfo>? children,
   }) : super(
           CuisineRoute.name,
           args: CuisineRouteArgs(
             key: key,
-            cuisine: cuisine,
+            cuisineId: cuisineId,
           ),
+          rawPathParams: {'id': cuisineId},
           initialChildren: children,
         );
 
@@ -83,16 +90,16 @@ class CuisineRoute extends PageRouteInfo<CuisineRouteArgs> {
 class CuisineRouteArgs {
   const CuisineRouteArgs({
     this.key,
-    required this.cuisine,
+    required this.cuisineId,
   });
 
   final Key? key;
 
-  final CuisineModel cuisine;
+  final String cuisineId;
 
   @override
   String toString() {
-    return 'CuisineRouteArgs{key: $key, cuisine: $cuisine}';
+    return 'CuisineRouteArgs{key: $key, cuisineId: $cuisineId}';
   }
 }
 
@@ -101,7 +108,7 @@ class CuisineRouteArgs {
 class ReservationRoute extends PageRouteInfo<ReservationRouteArgs> {
   ReservationRoute({
     Key? key,
-    required DateTime selectedDate,
+    required String selectedDate,
     List<PageRouteInfo>? children,
   }) : super(
           ReservationRoute.name,
@@ -109,6 +116,7 @@ class ReservationRoute extends PageRouteInfo<ReservationRouteArgs> {
             key: key,
             selectedDate: selectedDate,
           ),
+          rawPathParams: {'date': selectedDate},
           initialChildren: children,
         );
 
@@ -126,7 +134,7 @@ class ReservationRouteArgs {
 
   final Key? key;
 
-  final DateTime selectedDate;
+  final String selectedDate;
 
   @override
   String toString() {

@@ -75,5 +75,9 @@
   "reservationUsernameHint": "ex.Zahra Rouhi",
   "@reservationUsernameHint": {
     "type": "text"
+  },
+  "noCuisineFound": "No cuisine found!",
+  "@noCuisineFound": {
+    "type": "text"
   }
 }

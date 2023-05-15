@@ -10,11 +10,13 @@ import 'package:provider/provider.dart';
 
 @RoutePage()
 class ReservationScreen extends StatelessWidget with AutoRouteWrapper {
-  final DateTime selectedDate;
+  static const dateKey = 'date';
+
+  final String selectedDate;
 
   const ReservationScreen({
     super.key,
-    required this.selectedDate,
+    @PathParam(dateKey) required this.selectedDate,
   });
 
   @override

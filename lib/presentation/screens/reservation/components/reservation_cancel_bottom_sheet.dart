@@ -27,6 +27,8 @@ class ReservationCancelBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final reservationStream =
+        reservationsUsecase.reservationsStream(date: selectedDate);
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: const BoxDecoration(
@@ -94,11 +96,9 @@ class ReservationCancelBottomSheet extends StatelessWidget {
                   const SizedBox(width: 12.0),
                   Expanded(
                     child: StreamBuilder(
-                      stream: reservationsUsecase
-                          .reservationsStream(date: selectedDate)
-                          .map((snapshot) => snapshot.data()),
+                      stream: reservationStream,
                       builder: (context, snapshot) {
-                        final reservations = snapshot.data;
+                        final reservations = snapshot.data?.data();
                         final reservation =
                             reservations?.reservationFor(tableId: tableId);
                         final reservationStatus = ReservationStatus.by(

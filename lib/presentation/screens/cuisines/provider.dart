@@ -4,6 +4,7 @@ import 'package:appinio_restaurant/domain/cuisines/models/cuisine.dart';
 import 'package:appinio_restaurant/domain/cuisines/usecase.dart';
 import 'package:appinio_restaurant/presentation/common/appinio_provider.dart';
 import 'package:appinio_restaurant/presentation/screens/cuisines/router.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -15,33 +16,32 @@ class CuisinesProvider extends AppinioProvider<CuisinesRouter> {
     required this.cuisinesUsecase,
     @factoryParam required super.context,
   }) {
-    sub = _cuisinesStream.listen(_cuisineStreamListener);
+    _initialize();
+  }
+
+  void _initialize() {
+    final stream = cuisinesUsecase.cuisinesStream();
+    sub = stream.listen(_cuisineStreamListener);
   }
 
   late final StreamSubscription sub;
 
-  List<CuisineModel>? _cuisines;
+  List<QueryDocumentSnapshot<CuisineModel>>? _cuisines;
 
   String _searchTerm = '';
 
-  List<CuisineModel>? get cuisines {
+  List<QueryDocumentSnapshot<CuisineModel>>? get cuisines {
     final term = _searchTerm.trim().toLowerCase();
     if (term.isEmpty) {
       return _cuisines;
     }
     return _cuisines
-        ?.where((cuisine) => cuisine.name.toLowerCase().contains(term))
+        ?.where((cuisine) => cuisine.data().name.toLowerCase().contains(term))
         .toList();
   }
 
-  Stream<List<CuisineModel>> get _cuisinesStream {
-    final stream = cuisinesUsecase.cuisinesStream();
-    return stream
-        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
-  }
-
-  void _cuisineStreamListener(List<CuisineModel> cuisines) {
-    _cuisines = cuisines;
+  void _cuisineStreamListener(QuerySnapshot<CuisineModel> cuisines) {
+    _cuisines = cuisines.docs;
     notifyListeners();
   }
 
@@ -50,8 +50,8 @@ class CuisinesProvider extends AppinioProvider<CuisinesRouter> {
     notifyListeners();
   }
 
-  void onCuisineTap(CuisineModel cuisine) {
-    router.showCuisineDetails(cuisine);
+  void onCuisineTap(String cuisineId) {
+    router.showCuisineDetails(cuisineId);
   }
 
   @override

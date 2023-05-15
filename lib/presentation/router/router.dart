@@ -1,7 +1,7 @@
-import 'package:appinio_restaurant/domain/cuisines/models/cuisine.dart';
 import 'package:appinio_restaurant/presentation/screens/cuisine/screen.dart';
 import 'package:appinio_restaurant/presentation/screens/cuisines/screen.dart';
 import 'package:appinio_restaurant/presentation/screens/dashboard/screen.dart';
+import 'package:appinio_restaurant/presentation/screens/reservation/guards/date_guard.dart';
 import 'package:appinio_restaurant/presentation/screens/reservation/screen.dart';
 import 'package:appinio_restaurant/presentation/screens/reservation_time/screen.dart';
 import 'package:auto_route/auto_route.dart';
@@ -25,11 +25,28 @@ class AppRouter extends _$AppRouter {
       page: DashboardRoute.page,
       path: '/',
       children: [
-        AutoRoute(page: CuisinesRoute.page),
-        AutoRoute(page: ReservationTimeRoute.page),
+        RedirectRoute(
+          path: '',
+          redirectTo: 'cuisines',
+        ),
+        AutoRoute(
+          page: CuisinesRoute.page,
+          path: 'cuisines',
+        ),
+        AutoRoute(
+          page: ReservationTimeRoute.page,
+          path: 'reservation-date',
+        ),
       ],
     ),
-    AutoRoute(page: CuisineRoute.page),
-    AutoRoute(page: ReservationRoute.page),
+    AutoRoute(
+      page: CuisineRoute.page,
+      path: '/cuisines/:id',
+    ),
+    AutoRoute(
+      page: ReservationRoute.page,
+      path: '/reservation-date/:date',
+      guards: [DateGuard()],
+    ),
   ];
 }
